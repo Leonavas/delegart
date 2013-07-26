@@ -4,8 +4,10 @@ Delegart::Application.routes.draw do
   authenticated :user do
     root :to => 'home#index'
   end
-  root :to => "home#index"
-  devise_for :users
+  scope "(:locale)", :locale => /pt-BR|en/ do
+    root :to => "home#index"
+    devise_for :users
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
