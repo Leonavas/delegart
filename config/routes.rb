@@ -1,12 +1,31 @@
 Delegart::Application.routes.draw do
   #get "home/index"
 
-  authenticated :user do
-    root :to => 'home#index'
-  end
-  scope "(:locale)", :locale => /pt-BR|en/ do
-    root :to => "home#index"
-    devise_for :users
+  #authenticated :user do
+    #root :to => 'home#index'
+  #end
+  #scope "(:locale)", :locale => /pt-BR|en/ do
+    #root :to => "home#index"
+    #devise_for :user do
+      #match 'designer/sign_up' => 'registrations#new', :user => { :user_type => 'designer' }
+      #match 'company/sign_up' => 'registrations#new', :user => { :user_type => 'company' }
+    #end
+  #end
+
+  #devise_for :users, :path_names => {
+    #:sign_in => 'login', 
+    #:sign_out => 'logout'
+  #}, :controllers => {
+      #:registrations => "registrations"
+  #}
+
+  #resources :users
+
+  get "home/index"
+  root :to => "home#index"
+  devise_for :user, :controllers => {:registrations => "registrations"} do
+    match 'designer/sign_up' => 'registrations#new', :user => { :user_type => 'designer' }
+    match 'company/sign_up' => 'registrations#new', :user => { :user_type => 'company' }
   end
 
   # The priority is based upon order of creation:
